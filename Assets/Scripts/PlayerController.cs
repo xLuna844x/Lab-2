@@ -6,7 +6,8 @@ public class PlayerController : MonoBehaviour
 {   public float speed = 5.0f;
     public float turnSpeed;
     public float horizontalInput;
-    public float forwardInput;
+    public float forwardInput; 
+    public float xRange = 20;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +22,14 @@ public class PlayerController : MonoBehaviour
         forwardInput = Input.GetAxis("Vertical");
 
         transform.Translate(Vector3.forward * Time.deltaTime * speed * forwardInput);
-        transform.Translate(Vector3.right * turnSpeed * horizontalInput * Time.deltaTime);
+        transform.Translate(Vector3.right * turnSpeed * horizontalInput * Time.deltaTime); 
+        if (transform.position.x < -xRange) 
+        {
+            transform.position = new Vector3(-xRange, transform.position.y, transform.position.z);
+        } 
+        if (transform.position.x > xRange)
+        {
+            transform.position = new Vector3(xRange, transform.position.y, transform.position.z);
+        }
     }
 }
